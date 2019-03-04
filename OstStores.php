@@ -11,6 +11,7 @@
  *
  * 1.0.1
  * - fixed type comparisons
+ * - fixed saving of pickup store without selecting pick dispatch method
  *
  * @todo: backend app
  * @todo: pickup - default store im checkout listener falls kein store gewählt ist

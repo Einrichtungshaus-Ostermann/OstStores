@@ -16,6 +16,7 @@ use Enlight_Components_Session_Namespace as Session;
 use Enlight_Hook_HookArgs as HookArgs;
 use OstStores\Services\QueryBuilderService;
 use sOrder as CoreClass;
+use Shopware\Models\Dispatch\Dispatch;
 
 class sOrder
 {
@@ -47,10 +48,20 @@ class sOrder
         /* @var $sOrder CoreClass */
         $sOrder = $arguments->getSubject();
 
-        $userData = $sOrder->sUserData;
-
         /** @var Session $session */
         $session = Shopware()->Container()->get('session');
+
+        /** @var $dispatch Dispatch */
+        $dispatch = Shopware()->Models()->find(Dispatch::class, $session->get('sDispatch'));
+
+        // is this click&collect?
+        if ((boolean) $dispatch->getAttribute()->getOstStoresPickupStatus() === false) {
+            // stop
+            return;
+        }
+
+        // get the current user data
+        $userData = $sOrder->sUserData;
 
         // get the session data
         $data = (array) $session->get('ost-stores');
@@ -71,8 +82,10 @@ class sOrder
         // get the store
         $store = array_shift($builder->getQuery()->getArrayResult());
 
+        // overwrite shipping country
         $userData['additional']['countryShipping'] = Shopware()->Db()->fetchRow('SELECT * FROM s_core_countries WHERE id = :id', ['id' => $store['countryId']]);
 
+        // set the shipping address
         $address = [
             'id'                       => null,
             'company'                  => $store['name'],
@@ -100,8 +113,10 @@ class sOrder
             'attributes'               => []
         ];
 
+        // and save it back
         $userData['shippingaddress'] = $address;
 
+        // set back to core class
         $sOrder->sUserData = $userData;
     }
 }
