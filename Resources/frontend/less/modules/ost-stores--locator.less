@@ -1,0 +1,134 @@
+/**
+ * Einrichtungshaus Ostermann GmbH & Co. KG - Stores
+ *
+ * @package   OstStores
+ *
+ * @author    Eike Brandt-Warneke <e.brandt-warneke@ostermann.de>
+ * @copyright 2019 Einrichtungshaus Ostermann GmbH & Co. KG
+ * @license   proprietary
+ */
+
+// ...
+body.is--ctl-oststores.is--act-locator {
+
+
+    div.content--container {
+
+
+        div.stores--container {
+            width: 50%;
+
+
+
+
+            div.store {
+
+
+                span.title {
+                    font-weight: bold;
+                    display: block;
+                    margin-bottom: 20px;
+                }
+
+                div.details {
+                    width: 47%;
+                    margin-right: 6%;
+
+                    span.sub-title {
+                        display: block;
+                        font-weight: bold;
+                    }
+
+                    p:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                div.business-hours {
+                    width: 47%;
+
+                    span.sub-title {
+                        display: block;
+                        font-weight: bold;
+                    }
+
+                    span.business-hours--modal {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+        }
+
+
+
+        div.maps--container {
+            width: 50%;
+            background: white;
+            padding: 10px;
+            padding-bottom: 6px;
+
+            iframe {
+                width: 100%;
+                height: 400px;
+            }
+        }
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+div.js--modal.ost-stores--business-hours-modal {
+
+
+    div.content {
+        padding: 20px;
+
+
+
+
+        span.title {
+            font-weight: bold;
+            display: block;
+        }
+
+
+
+        div.holidays {
+            p {
+                margin: 0;
+            }
+
+            div.holiday {
+                margin-bottom: 20px;
+
+
+
+                p {
+                    margin: 0;
+
+                    span.name {
+                        font-weight: bold;
+                        display: block;
+                    }
+                }
+            }
+
+            div.holiday:last-child {
+                margin: 0;
+            }
+        }
+    }
+
+
+
+}
