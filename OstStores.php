@@ -9,6 +9,9 @@
  * 1.0.0
  * - initial release
  *
+ * 1.0.1
+ * - fixed type comparisons
+ *
  * @todo: backend app
  * @todo: pickup - default store im checkout listener falls kein store gewählt ist
  * @todo: pickup - nur gültige stores (aktiv und mit bestand für alle artikel) in selection modal

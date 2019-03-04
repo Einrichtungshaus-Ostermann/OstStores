@@ -67,7 +67,7 @@ class Checkout
         $dispatch = Shopware()->Models()->find(Dispatch::class, $session->get('sDispatch'));
 
         // is this click&collect?
-        if ($dispatch->getAttribute()->getOstStoresPickupStatus() === false) {
+        if ((boolean) $dispatch->getAttribute()->getOstStoresPickupStatus() === false) {
             // stop
             return;
         }
@@ -86,6 +86,7 @@ class Checkout
             // get default
             $storeId = $this->getDefaultStore();
 
+            // save back to session
             $data['pickup-store'] = $storeId;
             $session->offsetSet('ost-stores', $data);
         }
@@ -158,7 +159,7 @@ class Checkout
         // loop every article
         foreach ($basket['content'] as $article) {
             // only for real articles
-            if ($article['modus'] !== '0') {
+            if ((int) $article['modus'] !== 0) {
                 // next
                 continue;
             }
