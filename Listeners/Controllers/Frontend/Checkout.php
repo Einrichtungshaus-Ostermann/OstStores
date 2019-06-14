@@ -15,6 +15,7 @@ namespace OstStores\Listeners\Controllers\Frontend;
 use Enlight_Components_Session_Namespace as Session;
 use Enlight_Event_EventArgs as EventArgs;
 use OstStores\Services\QueryBuilderService;
+use OstStores\Services\ValidationService;
 use Shopware\Bundle\StoreFrontBundle\Struct\Attribute;
 use Shopware\Models\Dispatch\Dispatch;
 use Shopware_Controllers_Frontend_Checkout as Controller;
@@ -104,15 +105,9 @@ class Checkout
         // get the store
         $store = array_shift($builder->getQuery()->getArrayResult());
 
-        // ...
-        if ($this->isValidStore($store) === false) {
-            // ...
-            return;
-        }
-
-        // ...
+        // assign everything
         $view->assign('ostStoresPickupStore', $store);
-        $view->assign('ostStoresPickupValidStore', true);
+        $view->assign('ostStoresPickupValidStore', $this->isValidStore($store));
     }
 
     /**
@@ -122,8 +117,17 @@ class Checkout
      */
     private function getDefaultStore()
     {
-        // ...
-        return 1;
+        /* @var $queryBuilderService QueryBuilderService */
+        $queryBuilderService = Shopware()->Container()->get('ost_stores.query_builder_service');
+
+        // query builder
+        $builder = $queryBuilderService->getPickupStoreListQueryBuilder();
+
+        // only the first. its already sorted by position
+        $store = array_shift($builder->getQuery()->getArrayResult());
+
+        // return the id
+        return (integer) $store['id'];
     }
 
     /**
@@ -133,57 +137,12 @@ class Checkout
      *
      * @return bool
      */
-    private function isValidStore(array $store)
+    private function isValidStore($store)
     {
-        // even found?!
-        if (!is_array($store)) {
-            // wroooong
-            return false;
-        }
+        /* @var $validationService ValidationService */
+        $validationService = Shopware()->Container()->get('ost_stores.validation_service');
 
-        // active and valid?
-        if ($store['active'] === false) {
-            // invalid
-            return false;
-        }
-
-        // do we need to check the stock?
-        if ($this->configuration['pickupMsandatoryStockStatus'] === false) {
-            // nothing more to check
-            return true;
-        }
-
-        // get the basket
-        $basket = Shopware()->Modules()->Basket()->sGetBasket();
-
-        // loop every article
-        foreach ($basket['content'] as $article) {
-            // only for real articles
-            if ((int) $article['modus'] !== 0) {
-                // next
-                continue;
-            }
-
-            // get the core attribute
-            $attributes = $article['additional_details']['attributes']['core'];
-
-            // we need attribute or this might be a pseudo article
-            if (!$attributes instanceof Attribute) {
-                // stop
-                continue;
-            }
-
-            // get the stock
-            $stock = $attributes->get($store['attributeStock']);
-
-            // do we have enought?
-            if ($stock < (int) $article['quantity']) {
-                // invalid
-                return false;
-            }
-        }
-
-        // all good
-        return true;
+        // ...
+        return $validationService->isValidStore($store);
     }
 }

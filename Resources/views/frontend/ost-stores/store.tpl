@@ -1,5 +1,9 @@
 
-<div class="store" data-id="{$store.id}">
+{if $stockWarning == true}
+    {include file="frontend/_includes/messages.tpl" type="error" content="Die Filiale hat leider nicht alle Artikel ab Lager verfügbar.<br />Bitte wählen Sie eine andere Filiale!"}
+{/if}
+
+<div class="store{if $stockWarning == true} has--stock-warning{/if}" data-id="{$store.id}">
     <span class="title">{$store.name}</span>
     <div class="block-group">
         <div class="block details">

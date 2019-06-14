@@ -12,6 +12,7 @@
 
 use OstStores\Services\HolidayService;
 use OstStores\Services\QueryBuilderService;
+use OstStores\Services\ValidationService;
 use Shopware\Bundle\StoreFrontBundle\Service\ContextServiceInterface;
 use Shopware\Bundle\StoreFrontBundle\Service\ListProductServiceInterface;
 use Shopware\Components\CSRFWhitelistAware;
@@ -147,8 +148,22 @@ class Shopware_Controllers_Widgets_OstStores extends Enlight_Controller_Action i
         /* @var $queryBuilderService QueryBuilderService */
         $queryBuilderService = Shopware()->Container()->get('ost_stores.query_builder_service');
 
+        /* @var $validationService ValidationService */
+        $validationService = Shopware()->Container()->get('ost_stores.validation_service');
+
         // get them
         $stores = $queryBuilderService->getPickupStoreListQueryBuilder()->getQuery()->getArrayResult();
+
+        // validate them
+        $stores = array_map(
+            function( array $store ) use ( $validationService ) {
+                return array_merge(
+                    $store,
+                    array('isValid' => $validationService->isValidStore($store))
+                );
+            },
+            $stores
+        );
 
         // assign to template
         $this->get('template')->assign('ostStores', $stores);

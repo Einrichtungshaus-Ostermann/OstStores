@@ -7,8 +7,6 @@
 
 
 
-
-
 {* add pickup-store class to body tag *}
 {block name="frontend_index_body_classes"}{$smarty.block.parent} {strip}
     {if $ostStoresPickupStatus == true}
@@ -45,9 +43,6 @@
 
 
 
-
-
-
 {* ... *}
 {block name='frontend_checkout_confirm_product_table'}
 
@@ -61,7 +56,7 @@
 
                 {if $ostStoresPickupValidStore == true}
 
-                    {include file="frontend/ost-stores/store.tpl" store=$ostStoresPickupStore}
+                    {include file="frontend/ost-stores/store.tpl" store=$ostStoresPickupStore stockWarning=false}
 
                     <button class="btn is--secondary"
                             data-url="{url module="widgets" controller="OstStores" action="getPickupStoreSelectionModal"}"
@@ -73,8 +68,18 @@
 
                 {else}
 
-                    Die bisher gewählte Filiale ist leider ungültig.<br />
-                    Bitte wählen Sie ein gültige Filiale.
+                    {* definitly some unknown/random faulty store *}
+                    {if !is_array($ostStoresPickupStore) || $ostStoresPickupStore.active == false}
+
+                        Sie haben bisher keine Filiale ausgewählt.<br />
+                        Bitte wählen Sie ein gültige Filiale.
+
+                    {else}
+
+                        {* we have a store but this one does not have enough stock *}
+                        {include file="frontend/ost-stores/store.tpl" store=$ostStoresPickupStore stockWarning=true}
+
+                    {/if}
 
                     <button class="btn is--secondary"
                             data-url="{url module="widgets" controller="OstStores" action="getPickupStoreSelectionModal"}"
@@ -84,6 +89,7 @@
                         Filiale wechseln
                     </button>
 
+                    {* disable checkout button for default shopware template *}
                     {$invalidShippingAddress = true}
 
                 {/if}

@@ -13,9 +13,11 @@
  * - fixed type comparisons
  * - fixed saving of pickup store without selecting pick dispatch method
  *
- * @todo: backend app
- * @todo: pickup - default store im checkout listener falls kein store gewählt ist
- * @todo: pickup - nur gültige stores (aktiv und mit bestand für alle artikel) in selection modal
+ * 1.1.0
+ * - added backend app
+ * - fixed default store for click & collect
+ * - fixed invalid stores for click & collect
+ *
  * @todo: locator - google maps integration
  * @todo: business hours - nächsten feiertag anzeigen
  *

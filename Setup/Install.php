@@ -42,6 +42,7 @@ class Install
             ],
         ]
     ];
+    
     /**
      * Main bootstrap object.
      *

@@ -19,6 +19,10 @@
         <service id="ost_stores.holiday_service" class="OstStores\Services\HolidayService">
         </service>
 
+        <service id="ost_stores.validation_service" class="OstStores\Services\ValidationService">
+            <argument type="service" id="ost_stores.configuration" />
+        </service>
+
         <!-- frontend and widget controller listeners -->
         <service id="ost_stores.listeners.controllers.frontend.pre_dispatch" class="OstStores\Listeners\Controllers\Frontend">
             <argument type="service" id="ost_stores.configuration"/>

@@ -52,8 +52,14 @@ class HolidayService
      *
      * @return array
      */
-    public function getHolidays($year = 2019)
+    public function getHolidays($year = null)
     {
+        // default year
+        if ($year === null) {
+            // set this year
+            $year = (integer) date('Y');
+        }
+
         // get every calculated date
         $dates = $this->getCalculatedHolidayDates($year);
 
