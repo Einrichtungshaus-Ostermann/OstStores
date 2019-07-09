@@ -18,6 +18,9 @@
  * - fixed default store for click & collect
  * - fixed invalid stores for click & collect
  *
+ * 1.1.1
+ * - changed stores in checkout for lower viewports
+ *
  * @todo: locator - google maps integration
  * @todo: business hours - nächsten feiertag anzeigen
  *
