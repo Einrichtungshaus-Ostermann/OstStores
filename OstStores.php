@@ -21,6 +21,10 @@
  * 1.1.1
  * - changed stores in checkout for lower viewports
  *
+ * 1.1.2
+ * - fixed faulty config parameter name
+ * - added seo url for locator
+ *
  * @todo: locator - google maps integration
  * @todo: business hours - nächsten feiertag anzeigen
  *

@@ -56,7 +56,7 @@ class ValidationService
         }
 
         // do we need to check the stock?
-        if ($this->configuration['pickupMsandatoryStockStatus'] === false) {
+        if ($this->configuration['pickupMandatoryStockStatus'] === false) {
             // nothing more to check
             return true;
         }

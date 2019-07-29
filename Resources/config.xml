@@ -15,17 +15,28 @@
             <description>Soll das Plugin für diesen Shop aktiviert werden?</description>
         </element>
 
-
         <element type="button">
             <name>pickupButton</name>
             <label><![CDATA[<b>Click & Collect Einstellungen</b>]]></label>
         </element>
 
         <element type="boolean">
-            <name>pickupMsandatoryStockStatus</name>
+            <name>pickupMandatoryStockStatus</name>
             <label>Verfügbarkeit aktivieren</label>
             <value>true</value>
             <description>Muss die Filiale alle Artikel im Bestand haben, damit eine Abholung möglich ist?</description>
+        </element>
+
+        <element type="button">
+            <name>seoButton</name>
+            <label><![CDATA[<b>SEO Einstellungen</b>]]></label>
+        </element>
+
+        <element type="text">
+            <name>seoLocatorUrl</name>
+            <label>Filialen SEO Url</label>
+            <value>filialen</value>
+            <description><![CDATA[Hier können Sie eine SEO Url für die Übersicht der Filialen hinterlegen. Diese Url leitet dann automatisch auf die Plugin Url weiter.<br /><b>Beispiel</b>: filialen<br />https://www.domain.de/filialen<br />https://www.domain.de/OstStores/locator]]></description>
         </element>
 
     </elements>
