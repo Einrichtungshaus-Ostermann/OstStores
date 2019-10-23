@@ -126,6 +126,24 @@ class Store extends ModelEntity
     /**
      * ...
      *
+     * @var string
+     *
+     * @ORM\Column(name="seoUrl", type="string", nullable=true)
+     */
+    private $seoUrl;
+
+    /**
+     * ...
+     *
+     * @var string
+     *
+     * @ORM\Column(name="seoUrlRedirect", type="string", nullable=true)
+     */
+    private $seoUrlRedirect;
+
+    /**
+     * ...
+     *
      * @var float
      *
      * @ORM\Column(name="latitude", type="float", nullable=true)
@@ -459,6 +477,50 @@ class Store extends ModelEntity
     public function setUrl(string $url)
     {
         $this->url = $url;
+    }
+
+    /**
+     * Getter method for the property.
+     *
+     * @return string
+     */
+    public function getSeoUrl()
+    {
+        return $this->seoUrl;
+    }
+
+    /**
+     * Setter method for the property.
+     *
+     * @param string $seoUrl
+     *
+     * @return void
+     */
+    public function setSeoUrl(string $seoUrl)
+    {
+        $this->seoUrl = $seoUrl;
+    }
+
+    /**
+     * Getter method for the property.
+     *
+     * @return string
+     */
+    public function getSeoUrlRedirect()
+    {
+        return $this->seoUrlRedirect;
+    }
+
+    /**
+     * Setter method for the property.
+     *
+     * @param string $seoUrlRedirect
+     *
+     * @return void
+     */
+    public function setSeoUrlRedirect(string $seoUrlRedirect)
+    {
+        $this->seoUrlRedirect = $seoUrlRedirect;
     }
 
     /**

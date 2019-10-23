@@ -25,6 +25,9 @@
  * - fixed faulty config parameter name
  * - added seo url for locator
  *
+ * 1.2.0
+ * - added seo-url and seo-url-redirect to store model
+ *
  * @todo: locator - google maps integration
  * @todo: business hours - nächsten feiertag anzeigen
  *
@@ -92,7 +95,8 @@ class OstStores extends Plugin
             $this,
             $context,
             $this->container->get('models'),
-            $this->container->get('shopware_attribute.crud_service')
+            $this->container->get('shopware_attribute.crud_service'),
+            $this->getPath() . '/'
         );
         $updater->install();
 
@@ -112,7 +116,8 @@ class OstStores extends Plugin
             $this,
             $context,
             $this->container->get('models'),
-            $this->container->get('shopware_attribute.crud_service')
+            $this->container->get('shopware_attribute.crud_service'),
+            $this->getPath() . '/'
         );
         $updater->update($context->getCurrentVersion());
 

@@ -21,6 +21,8 @@ Ext.define('Shopware.apps.OstStores.model.Stores', {
         { name: 'fax', type: 'string' },
         { name: 'email', type: 'string' },
         { name: 'url', type: 'string' },
+        { name: 'seoUrl', type: 'string' },
+        { name: 'seoUrlRedirect', type: 'string' },
         { name: 'latitude', type: 'string' },
         { name: 'longitude', type: 'string' },
         { name: 'position', type: 'integer' },

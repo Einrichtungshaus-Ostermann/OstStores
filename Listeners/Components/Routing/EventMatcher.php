@@ -59,13 +59,30 @@ class EventMatcher
         // trim the slash
         $path = ltrim($path, '/');
 
-        // is this not return?!
-        if ((empty($this->configuration['seoLocatorUrl'])) || (strtolower($path) !== strtolower($this->configuration['seoLocatorUrl']))) {
-            // nothing to do
-            return null;
+        // try default configuration
+        if ((!empty($this->configuration['seoLocatorUrl'])) && (strtolower($path) === strtolower($this->configuration['seoLocatorUrl']))) {
+            // reroute to return
+            return $this->route;
         }
 
-        // reroute to return
-        return $this->route;
+        // try to get via store
+        $query = '
+            SELECT seoUrlRedirect
+            FROM ost_stores
+            WHERE seoUrl LIKE ?
+        ';
+        $urlRedirect = (string) Shopware()->Db()->fetchOne($query, strtolower($path));
+
+        // did we find it?!
+        if (!empty($urlRedirect)) {
+            // get the response object
+            $response = Shopware()->Container()->get('front')->Response();
+
+            // and set redirect
+            $response->setRedirect($urlRedirect, 301);
+        }
+
+        // nothing to do
+        return null;
     }
 }
