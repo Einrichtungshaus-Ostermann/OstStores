@@ -88,7 +88,7 @@ class sOrder
         // set the shipping address
         $address = [
             'id'                       => null,
-            'company'                  => $store['name'],
+            'company'                  => null,
             'salutation'               => $userData['additional']['user']['salutation'],
             'firstname'                => $userData['additional']['user']['firstname'],
             'lastname'                 => $userData['additional']['user']['lastname'],

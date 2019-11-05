@@ -20,11 +20,34 @@
             <label><![CDATA[<b>Click & Collect Einstellungen</b>]]></label>
         </element>
 
+        <!--
         <element type="boolean">
             <name>pickupMandatoryStockStatus</name>
             <label>Verfügbarkeit aktivieren</label>
             <value>true</value>
             <description>Muss die Filiale alle Artikel im Bestand haben, damit eine Abholung möglich ist?</description>
+        </element>
+        -->
+
+        <element type="select">
+            <name>pickupMandatoryStockStatusSelection</name>
+            <label>Verfügbarkeit</label>
+            <value>stockArticles</value>
+            <description>Muss die Filiale alle oder ausgewählte Artikel im Bestand haben, damit eine Abholung möglich ist?</description>
+            <store>
+                <option>
+                    <value>noRestriction</value>
+                    <label>Kein Artikel muss verfügbar sein</label>
+                </option>
+                <option>
+                    <value>stockArticles</value>
+                    <label>Lager-Artikel müssen verfügbar sein, Bestell-Artikel werden ignoriert</label>
+                </option>
+                <option>
+                    <value>stockAndOrderArticles</value>
+                    <label>Lager-Artikel und Bestell-Artikel müssen verfügbar sein</label>
+                </option>
+            </store>
         </element>
 
         <element type="button">
@@ -37,6 +60,18 @@
             <label>Filialen SEO Url</label>
             <value>filialen</value>
             <description><![CDATA[Hier können Sie eine SEO Url für die Übersicht der Filialen hinterlegen. Diese Url leitet dann automatisch auf die Plugin Url weiter.<br /><b>Beispiel</b>: filialen<br />https://www.domain.de/filialen<br />https://www.domain.de/OstStores/locator]]></description>
+        </element>
+
+        <element type="button">
+            <name>attributeButton</name>
+            <label><![CDATA[<b>Attribute</b>]]></label>
+        </element>
+
+        <element type="text">
+            <name>attributeDispo</name>
+            <label>IWM Dispo</label>
+            <value>attr11</value>
+            <description>In welchem Attribut wird die Dispo gepflegt? L: Lager-Artikel, B: Bestell-Artikel</description>
         </element>
 
     </elements>

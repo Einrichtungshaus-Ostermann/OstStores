@@ -55,8 +55,16 @@ class ValidationService
             return false;
         }
 
+        // set default configuration value
+        $stockSelection = (in_array($this->configuration['pickupMandatoryStockStatusSelection'], array()))
+            ? (string) $this->configuration['pickupMandatoryStockStatusSelection']
+            : 'stockArticles';
+
+        // get dispo attribute
+        $dispoAttribute = (string) $this->configuration['attributeDispo'];
+
         // do we need to check the stock?
-        if ($this->configuration['pickupMandatoryStockStatus'] === false) {
+        if ($stockSelection === 'noRestriction') {
             // nothing more to check
             return true;
         }
@@ -83,6 +91,12 @@ class ValidationService
 
             // get the stock
             $stock = $attributes->get($store['attributeStock']);
+
+            // can we ignore order-articles?
+            if ($attributes->get($dispoAttribute) === 'B' && $stockSelection === 'stockArticles') {
+                // ignore order-articles
+                continue;
+            }
 
             // do we have enought?
             if ($stock < (int) $article['quantity']) {

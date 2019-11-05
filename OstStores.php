@@ -28,6 +28,9 @@
  * 1.2.0
  * - added seo-url and seo-url-redirect to store model
  *
+ * 1.2.1
+ * - changed mandatory stock configuration
+ *
  * @todo: locator - google maps integration
  * @todo: business hours - nächsten feiertag anzeigen
  *
