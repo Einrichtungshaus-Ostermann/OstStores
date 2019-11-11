@@ -13,6 +13,7 @@
 namespace OstStores\Listeners\Core;
 
 use Enlight_Components_Session_Namespace as Session;
+use Enlight_Event_EventArgs as EventArgs;
 use Enlight_Hook_HookArgs as HookArgs;
 use OstStores\Services\QueryBuilderService;
 use sOrder as CoreClass;
@@ -55,7 +56,7 @@ class sOrder
         $dispatch = Shopware()->Models()->find(Dispatch::class, $session->get('sDispatch'));
 
         // is this click&collect?
-        if ((boolean) $dispatch->getAttribute()->getOstStoresPickupStatus() === false) {
+        if (!$dispatch->getAttribute() instanceof \Shopware\Models\Attribute\Dispatch || (boolean) $dispatch->getAttribute()->getOstStoresPickupStatus() === false) {
             // stop
             return;
         }
@@ -118,5 +119,54 @@ class sOrder
 
         // set back to core class
         $sOrder->sUserData = $userData;
+    }
+
+    /**
+     * ...
+     *
+     * @param EventArgs $arguments
+     *
+     * @return array
+     */
+    public function filterAttributes(EventArgs $arguments)
+    {
+        /* @var $sOrder CoreClass */
+        $sOrder = $arguments->getSubject();
+
+        // get the atttributes
+        $attributes = $arguments->getReturn();
+
+        /** @var Session $session */
+        $session = Shopware()->Container()->get('session');
+
+        /** @var $dispatch Dispatch */
+        $dispatch = Shopware()->Models()->find(Dispatch::class, $session->get('sDispatch'));
+
+        // is this click&collect?
+        if (!$dispatch->getAttribute() instanceof \Shopware\Models\Attribute\Dispatch || (boolean) $dispatch->getAttribute()->getOstStoresPickupStatus() === false) {
+            // stop
+            return $attributes;
+        }
+
+        // get the session data
+        $data = (array) $session->get('ost-stores');
+
+        // get the current pickup store id
+        $storeId = (int) $data['pickup-store'];
+
+        // get the key
+        $query = '
+            SELECT `key`
+            FROM `ost_stores`
+            WHERE id = ?
+        ';
+        $storeKey = (integer) Shopware()->Db()->fetchOne($query, array($storeId));
+
+        // set our parameters
+        $attributes['ost_stores_pickup_status'] = true;
+        $attributes['ost_stores_pickup_store_id'] = $storeKey;
+
+        // return the filtered attributes
+        return $attributes;
     }
 }

@@ -40,7 +40,34 @@ class Install
                     'position'         => 420
                 ]
             ],
+        ],
+        's_order_attributes' => [
+            [
+                'column' => 'ost_stores_pickup_status',
+                'type'   => 'boolean',
+                'data'   => [
+                    'label'            => 'Click & Collect Status',
+                    'helpText'         => 'Wird diese Bestellung in einer Filiale abgeholt?',
+                    'translatable'     => false,
+                    'displayInBackend' => true,
+                    'custom'           => false,
+                    'position'         => 400
+                ]
+            ],
+            [
+                'column' => 'ost_stores_pickup_store_id',
+                'type'   => 'integer',
+                'data'   => [
+                    'label'            => 'Click & Collect Filiale',
+                    'helpText'         => 'Die ID der Filiale.',
+                    'translatable'     => false,
+                    'displayInBackend' => true,
+                    'custom'           => false,
+                    'position'         => 410
+                ]
+            ],
         ]
+
     ];
     
     /**

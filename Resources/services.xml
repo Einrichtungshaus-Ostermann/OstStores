@@ -51,5 +51,16 @@
             <tag name="shopware.event_listener" method="beforeSaveOrder" event="sOrder::sSaveOrder::before" />
         </service>
 
+        <service id="ost_stores.listener.core.s_order.filter_attributes" class="OstStores\Listeners\Core\sOrder">
+            <argument type="service" id="ost_stores.configuration" />
+            <tag name="shopware.event_listener" method="filterAttributes" event="Shopware_Modules_Order_SaveOrder_FilterAttributes"/>
+        </service>
+
+        <!-- plugin listeners -->
+        <service id="ost_stores.listeners.plugins.ost_order_csv_writer.parser_service.filter_order" class="OstStores\Listeners\Plugins\OstOrderCsvWriter\ParserService">
+            <argument type="service" id="ost_stores.configuration" />
+            <tag name="shopware.event_listener" method="filterOrder" event="ost-order-csv-writer--filter-order"/>
+        </service>
+
     </services>
 </container>

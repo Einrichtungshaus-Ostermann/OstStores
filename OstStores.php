@@ -31,6 +31,10 @@
  * 1.2.1
  * - changed mandatory stock configuration
  *
+ * 1.3.0
+ * - added order attributes to save the store id when using click&collect
+ * - added listener to ost-order-csv-writer plugin to set the store id
+ *
  * @todo: locator - google maps integration
  * @todo: business hours - nächsten feiertag anzeigen
  *

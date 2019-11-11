@@ -100,6 +100,9 @@ class Update
             case '1.1.1':
             case '1.1.2':
                 $this->updateSql('1.2.0');
+            case '1.2.0':
+            case '1.2.1':
+                $this->updateAttributes();
         }
     }
 
