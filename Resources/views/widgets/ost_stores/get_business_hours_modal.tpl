@@ -71,12 +71,40 @@
     <div class="holidays">
 
         <p>
-            <span class="title">Feiertage</span>
+            <span class="title">Besondere Öffnungszeiten</span>
+            <br />
 
         </p>
 
 
+
+
+
+        {foreach $ostStoresOpen as $open}
+            <div class="holiday">
+
+                <p>
+
+                <span class="name">
+                {$open.description} ({$open.date|date_format:"%d.%m.%Y"})
+                    </span>
+
+
+                    {$open.startTime|substr:0:5} - {$open.endTime|substr:0:5} Uhr
+
+                </p>
+
+            </div>
+        {/foreach}
+
+
             {foreach $ostStoresHolidays as $key => $holiday}
+
+
+                {if $holiday.active == false}
+                    {continue}
+                    {/if}
+
 
 
         <div class="holiday">

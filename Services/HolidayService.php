@@ -19,31 +19,30 @@ class HolidayService
      *
      * @var array
      */
-    private $holidays = [
-        10  => ['name' => 'Neujahr', 'active' => true],
-        20  => ['name' => 'Heilige Drei Könige', 'active' => false],
-        30  => ['name' => 'Frauentag', 'active' => false],
-        50  => ['name' => 'Rosenmontag', 'active' => true],
-        51  => ['name' => 'Aschermittwoch', 'active' => false],
-        52  => ['name' => 'Gründonnerstag', 'active' => false],
-        53  => ['name' => 'Karfreitag', 'active' => true],
-        54  => ['name' => 'Ostersonntag', 'active' => false],
-        55  => ['name' => 'Ostermontag', 'active' => true],
-        60  => ['name' => 'Erster Mai (Tag der Arbeit)', 'active' => true],
-        70  => ['name' => 'Christi Himmelfahrt', 'active' => true],
-        71  => ['name' => 'Pfingstsonntag', 'active' => false],
-        72  => ['name' => 'Pfingstmontag', 'active' => true],
-        73  => ['name' => 'Fronleichnam', 'active' => true],
-        80  => ['name' => 'Maria Himmelfahrt', 'active' => true],
-        90  => ['name' => 'Tag der deutschen Einheit', 'active' => true],
-        100 => ['name' => 'Reformationstag', 'active' => false],
-        110 => ['name' => 'Allerheiligen', 'active' => false],
-        120 => ['name' => 'Buß- und Bettag', 'active' => false],
-        130 => ['name' => 'Heiligabend', 'active' => true],
-        131 => ['name' => 'Erster Weihnachtsfeiertag', 'active' => true],
-        132 => ['name' => 'Zweiter Weihnachtsfeiertag', 'active' => true],
-        140 => ['name' => 'Silvester', 'active' => true]
-    ];
+    private $holidays = [];
+
+    /**
+     * ...
+     */
+    public function __construct()
+    {
+        // ...
+        $query = '
+            SELECT *
+            FROM ost_stores_holidays
+            ORDER BY id ASC
+        ';
+        $holidays = Shopware()->Db()->fetchAll($query);
+
+        // loop them
+        foreach ($holidays as $holiday) {
+            // set to this
+            $this->holidays[(integer) $holiday['id']] = array(
+                'name' => (string) $holiday['name'],
+                'active' => ((string) $holiday['active'] === '1')
+            );
+        }
+    }
 
     /**
      * ...
@@ -112,6 +111,7 @@ class HolidayService
         $holidays[131] = $year . '-12-25';
         $holidays[132] = $year . '-12-26';
         $holidays[140] = $year . '-12-31';
+        $holidays[150] = ($year + 1) . '-01-01';
 
         // return them
         return $holidays;

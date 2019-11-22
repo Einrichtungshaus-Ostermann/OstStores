@@ -35,6 +35,11 @@
  * - added order attributes to save the store id when using click&collect
  * - added listener to ost-order-csv-writer plugin to set the store id
  *
+ * 1.4.0
+ * - added open hours to store modal
+ * - added OstStores\Holiday model
+ * - added business hours to backend app
+ *
  * @todo: locator - google maps integration
  * @todo: business hours - nächsten feiertag anzeigen
  *

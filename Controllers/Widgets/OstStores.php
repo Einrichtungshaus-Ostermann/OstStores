@@ -133,9 +133,19 @@ class Shopware_Controllers_Widgets_OstStores extends Enlight_Controller_Action i
             $store['businesshoursHolidaysByHoliday'][$holiday['key']] = $holiday;
         }
 
+        // ...
+        $query = '
+            SELECT *
+            FROM ost_stores_businesshours_open
+            WHERE storeId = ?
+                AND active = 1
+        ';
+        $open = Shopware()->Db()->fetchAll($query, array($this->Request()->getParam('id')));
+
         // assign to template
         $this->get('template')->assign('ostStore', $store);
         $this->get('template')->assign('ostStoresHolidays', $holidays);
+        $this->get('template')->assign('ostStoresOpen', $open);
     }
 
     /**
