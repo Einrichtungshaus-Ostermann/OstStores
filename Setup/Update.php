@@ -105,6 +105,8 @@ class Update
                 $this->updateAttributes();
             case '1.3.0':
                 $this->updateSql('1.4.0');
+            case '1.4.0':
+                $this->updateSql('1.5.0');
         }
     }
 

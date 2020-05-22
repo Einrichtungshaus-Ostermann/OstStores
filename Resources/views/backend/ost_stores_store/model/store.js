@@ -38,6 +38,9 @@ Ext.define('Shopware.apps.OstStoresStore.model.Store', {
         { name: 'key', type: 'string' },
         { name: 'physical', type: 'boolean' },
         { name: 'pickup', type: 'boolean' },
+        { name: 'hasPickup', type: 'boolean' },
+        { name: 'hasStock', type: 'boolean' },
+        { name: 'isListed', type: 'boolean' },
         { name: 'attributeStock', type: 'string' },
         { name: 'attributeExhibition', type: 'string' },
         { name: 'businessHours', type: 'string' }

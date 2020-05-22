@@ -180,6 +180,8 @@ class Store extends ModelEntity
     /**
      * Is this an actual physical store?
      *
+     * @deprecated not used anymore
+     *
      * @var bool
      *
      * @ORM\Column(name="physical", type="boolean", nullable=false)
@@ -189,11 +191,42 @@ class Store extends ModelEntity
     /**
      * Do we support pickup for customers?
      *
+     * @deprecated not used anymore
+     *
      * @var bool
      *
      * @ORM\Column(name="pickup", type="boolean", nullable=false)
      */
     private $pickup;
+
+    /**
+     * Do we support pickup for customers?
+     * No matter what "hasStock" says, we always read the stock if this store
+     * has sufficient stock.
+     *
+     * @var bool
+     *
+     * @ORM\Column(name="hasPickup", type="boolean", nullable=false)
+     */
+    private $hasPickup;
+
+    /**
+     * Do we show this store in our article store stock?
+     *
+     * @var bool
+     *
+     * @ORM\Column(name="hasStock", type="boolean", nullable=false)
+     */
+    private $hasStock;
+
+    /**
+     * Do we list this store in our store overview?
+     *
+     * @var bool
+     *
+     * @ORM\Column(name="isListed", type="boolean", nullable=false)
+     */
+    private $isListed;
 
     /**
      * The name of the article attribute where we save the stock

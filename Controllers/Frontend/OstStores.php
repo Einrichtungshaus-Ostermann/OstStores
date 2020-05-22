@@ -56,8 +56,14 @@ class Shopware_Controllers_Frontend_OstStores extends Enlight_Controller_Action 
         /* @var $queryBuilderService QueryBuilderService */
         $queryBuilderService = Shopware()->Container()->get('ost_stores.query_builder_service');
 
+        // get the query buolder
+        $builder = $queryBuilderService->getStoreListQueryBuilder();
+
+        // only valid
+        $builder->where('store.isListed = 1');
+
         // get them
-        $stores = $queryBuilderService->getStoreListQueryBuilder()->getQuery()->getArrayResult();
+        $stores = $builder->getQuery()->getArrayResult();
 
         // assign to template
         $this->get('template')->assign('ostStores', $stores);

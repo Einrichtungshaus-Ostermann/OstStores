@@ -86,18 +86,21 @@ class sOrder
         // overwrite shipping country
         $userData['additional']['countryShipping'] = Shopware()->Db()->fetchRow('SELECT * FROM s_core_countries WHERE id = :id', ['id' => $store['countryId']]);
 
+        // ...
+        $storeNameArr = explode(' ', $store['name']);
+
         // set the shipping address
         $address = [
             'id'                       => null,
             'company'                  => null,
             'salutation'               => $userData['additional']['user']['salutation'],
-            'firstname'                => $userData['additional']['user']['firstname'],
-            'lastname'                 => $userData['additional']['user']['lastname'],
+            'firstname'                => $storeNameArr[0],
+            'lastname'                 => $storeNameArr[1],
             'title'                    => null,
             'street'                   => $store['street'],
             'zipcode'                  => $store['zip'],
             'city'                     => $store['city'],
-            'phone'                    => null,
+            'phone'                    => $store['phone'],
             'vatId'                    => null,
             'additionalAddressLine1'   => null,
             'additionalAddressLine2'   => null,

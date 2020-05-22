@@ -64,8 +64,26 @@ class Checkout
         /** @var Session $session */
         $session = Shopware()->Container()->get('session');
 
+        // ...
+        if ((integer) $session->offsetGet('sDispatch') === 0) {
+            // ...
+            return;
+        }
+
         /** @var $dispatch Dispatch */
-        $dispatch = Shopware()->Models()->find(Dispatch::class, $session->get('sDispatch'));
+        $dispatch = Shopware()->Models()->find(Dispatch::class, (integer) $session->offsetGet('sDispatch'));
+
+        // ...
+        if (!$dispatch instanceof \Shopware\Models\Dispatch\Dispatch) {
+            // ...
+            return;
+        }
+
+        // invalid attribute
+        if (!$dispatch->getAttribute() instanceof \Shopware\Models\Attribute\Dispatch) {
+            // stop
+            return;
+        }
 
         // is this click&collect?
         if ((boolean) $dispatch->getAttribute()->getOstStoresPickupStatus() === false) {
@@ -81,6 +99,22 @@ class Checkout
 
         // get the current pickup store id
         $storeId = (int) $data['pickup-store'];
+
+        // check if valid
+        $query = '
+            SELECT hasPickup
+            FROM ost_stores
+            WHERE id = ?
+                AND hasPickup = 1
+                AND active = 1
+        ';
+        $hasPickup = (integer) Shopware()->Db()->fetchOne($query, array($storeId));
+
+        // no pickup?!
+        if ($hasPickup === 0) {
+            // reset store which may be an old one
+            $storeId = 0;
+        }
 
         // not store set yet?
         if ($storeId === 0) {
@@ -102,8 +136,11 @@ class Checkout
         $builder->andWhere('store.id = :id')
             ->setParameter('id', $storeId);
 
-        // get the store
-        $store = array_shift($builder->getQuery()->getArrayResult());
+        // get all atores
+        $stores = $builder->getQuery()->getArrayResult();
+
+        // get our only one
+        $store = array_shift($stores);
 
         // assign everything
         $view->assign('ostStoresPickupStore', $store);
@@ -121,10 +158,16 @@ class Checkout
         $queryBuilderService = Shopware()->Container()->get('ost_stores.query_builder_service');
 
         // query builder
-        $builder = $queryBuilderService->getPickupStoreListQueryBuilder();
+        $builder = $queryBuilderService->getStoreListQueryBuilder();
+
+        // only pickup
+        $builder->andWhere('store.hasPickup = 1');
+
+        // get all
+        $stores = $builder->getQuery()->getArrayResult();
 
         // only the first. its already sorted by position
-        $store = array_shift($builder->getQuery()->getArrayResult());
+        $store = array_shift($stores);
 
         // return the id
         return (integer) $store['id'];

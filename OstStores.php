@@ -40,6 +40,10 @@
  * - added OstStores\Holiday model
  * - added business hours to backend app
  *
+ * 1.5.0
+ * - added dropshipping attribute configuration to drop click&collect shipping method
+ * - added flags for every store where they should be visible
+ *
  * @todo: locator - google maps integration
  * @todo: business hours - nächsten feiertag anzeigen
  *

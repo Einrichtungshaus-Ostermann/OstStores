@@ -59,8 +59,14 @@ class Shopware_Controllers_Widgets_OstStores extends Enlight_Controller_Action i
         /* @var $queryBuilderService QueryBuilderService */
         $queryBuilderService = Shopware()->Container()->get('ost_stores.query_builder_service');
 
+        // get the query builder
+        $builder = $queryBuilderService->getStoreListQueryBuilder();
+
+        // only valid
+        $builder->where('store.hasStock = 1');
+
         // get them
-        $stores = $queryBuilderService->getPickupStoreListQueryBuilder()->getQuery()->getArrayResult();
+        $stores = $builder->getQuery()->getArrayResult();
 
         /** @var ListProductServiceInterface $listProductService */
         $listProductService = Shopware()->Container()->get('shopware_storefront.list_product_service');
@@ -161,8 +167,14 @@ class Shopware_Controllers_Widgets_OstStores extends Enlight_Controller_Action i
         /* @var $validationService ValidationService */
         $validationService = Shopware()->Container()->get('ost_stores.validation_service');
 
+        // get the query builder
+        $builder = $queryBuilderService->getStoreListQueryBuilder();
+
+        // only valid
+        $builder->where('store.hasPickup = 1');
+
         // get them
-        $stores = $queryBuilderService->getPickupStoreListQueryBuilder()->getQuery()->getArrayResult();
+        $stores = $builder->getQuery()->getArrayResult();
 
         // validate them
         $stores = array_map(

@@ -74,5 +74,12 @@
             <description>In welchem Attribut wird die Dispo gepflegt? L: Lager-Artikel, B: Bestell-Artikel</description>
         </element>
 
+        <element type="text">
+            <name>attributeDropshipping</name>
+            <label>IWM Direktversand</label>
+            <value>attr23</value>
+            <description>In welchem Attribut wird der Direktversand gepflegt? 1: Direktkeinversand, 0: kein Direktversand</description>
+        </element>
+
     </elements>
 </config>

@@ -50,24 +50,6 @@ class QueryBuilderService
      *
      * @return QueryBuilder
      */
-    public function getPickupStoreListQueryBuilder()
-    {
-        // create a query builder
-        $builder = $this->getStoreListQueryBuilder();
-
-        // set it up with default values
-        $builder->andWhere('store.physical = 1')
-            ->andWhere('store.pickup = 1');
-
-        // and return it
-        return $builder;
-    }
-
-    /**
-     * ...
-     *
-     * @return QueryBuilder
-     */
     public function getStoreListQueryBuilder()
     {
         // create a query builder

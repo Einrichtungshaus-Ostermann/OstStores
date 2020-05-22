@@ -56,6 +56,11 @@
             <tag name="shopware.event_listener" method="filterAttributes" event="Shopware_Modules_Order_SaveOrder_FilterAttributes"/>
         </service>
 
+        <service id="ost_stores.listeners.core.s_admin.dispatches" class="OstStores\Listeners\Core\sAdmin">
+            <argument type="service" id="ost_stores.configuration" />
+            <tag name="shopware.event_listener" method="afterDispatches" event="sAdmin::sGetPremiumDispatches::after" />
+        </service>
+
         <!-- plugin listeners -->
         <service id="ost_stores.listeners.plugins.ost_order_csv_writer.parser_service.filter_order" class="OstStores\Listeners\Plugins\OstOrderCsvWriter\ParserService">
             <argument type="service" id="ost_stores.configuration" />

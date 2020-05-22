@@ -18,10 +18,27 @@
                 Telefon: {$store.phone}<br />
                 Fax: {$store.fax}<br />
                 {$store.email}<br />
-                {$store.url}
+                <a href="{$store.url}" target="_blank">{$store.url}</a>
             </p>
+
+            {if $showSelectionButton == true}
+                <p>
+                    <span class="btn is--primary">Abholort wählen</span>
+                </p>
+            {/if}
+
         </div>
         <div class="block business-hours">
+            {*
+            <p>
+                <span class="sub-title">Öffnungszeiten</span>
+                {if $store.businessHours != ""}
+                    {$store.businessHours}
+                {else}
+                    Wir haben vorerst bis zum 19.04.2020 geschlossen.
+                {/if}
+            </p>
+            *}
             <p>
                 <span class="sub-title">Öffnungszeiten</span>
                 {if $store.businessHours != ""}
